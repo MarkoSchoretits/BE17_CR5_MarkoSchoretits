@@ -12,12 +12,12 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
     exit;
 }
 
-$suppliers = "";
-$result = mysqli_query($connect, "SELECT * FROM suppliers");
+$address = "";
+$result = mysqli_query($connect, "SELECT * FROM address");
 
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-    $suppliers .=
-        "<option value='{$row['supplierId']}'>{$row['sup_name']}</option>";
+    $address .=
+        "<option value='{$row['id']}'>{$row['street']}</option>";
 }
 ?>
 
@@ -28,7 +28,7 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once '../components/boot.php' ?>
-    <title>PHP CRUD | Add Product</title>
+    <title>Add Animal</title>
     <style>
         fieldset {
             margin: auto;
@@ -40,26 +40,55 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 
 <body>
     <fieldset>
-        <legend class='h2'>Add Product</legend>
+        <legend class='h2'>Add Animal</legend>
         <form action="actions/a_create.php" method="post" enctype="multipart/form-data">
             <table class='table'>
                 <tr>
                     <th>Name</th>
-                    <td><input class='form-control' type="text" name="name" placeholder="Product Name" /></td>
+                    <td><input class='form-control' type="text" name="name" placeholder="Animal Name" /></td>
                 </tr>
                 <tr>
-                    <th>Price</th>
-                    <td><input class='form-control' type="number" name="price" placeholder="Price" step="any" /></td>
+                    <th>Description</th>
+                    <td><input class='form-control' type="text" name="description" placeholder="Description" /></td>
+                </tr>
+                <tr>
+                    <th>Size</th>
+                    <td><input class="form-control" list="sizeOptions" name="size" placeholder="Size" />
+                    <datalist id="sizeOptions">
+                        <option value="small">
+                        <option value="BIG">
+                    </datalist>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td><input class='form-control' type="number" name="age" placeholder="Age" step="any" /></td>
+                </tr>
+                <tr>
+                    <th>Vaccines</th>
+                    <td><input class='form-control' type="text" name="vaccines" placeholder="Vaccines" /></td>
+                </tr>
+                <tr>
+                    <th>Breed</th>
+                    <td><input class='form-control' type="text" name="breed" placeholder="Breed" /></td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td><input class="form-control" list="statusOptions" name="status" placeholder="Status" />
+                    <datalist id="statusOptions">
+                        <option value="available">
+                        <option value="adopted">
+                    </datalist>
+                </td>
                 </tr>
                 <tr>
                     <th>Picture</th>
                     <td><input class='form-control' type="file" name="picture" /></td>
                 </tr>
                 <tr>
-                    <th>Supplier</th>
+                    <th>Address</th>
                     <td>
-                        <select class="form-select" name="supplier" aria-label="Default select example">
-                            <?php echo $suppliers; ?>
+                        <select class="form-select" name="address" aria-label="Default select example">
+                            <?php echo $address; ?>
                             <option selected value='none'>Undefined</option>
                         </select>
                     </td>

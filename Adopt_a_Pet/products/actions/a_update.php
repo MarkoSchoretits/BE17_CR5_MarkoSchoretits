@@ -14,22 +14,28 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
 
 require_once '../../components/db_connect.php';
 require_once '../../components/file_upload.php';
-
+ 
 
 if ($_POST) {
     $name = $_POST['name'];
-    $price = $_POST['price'];
-    $supplier = $_POST['supplier'];
+    $description = $_POST['description'];
+    $size = $_POST['size'];
+    $age = $_POST['age'];
+    $vaccines = $_POST['vaccines'];
+    $breed = $_POST['breed'];
+    $status = $_POST['status'];
+    $address = $_POST['address'];
     $id = $_POST['id'];
+    $picture = $_POST['picture'];
     //variable for upload pictures errors is initialised
     $uploadError = '';
 
-    $picture = file_upload($_FILES['picture'], 'product'); //file_upload() called  
+    $picture = file_upload($_FILES['picture'], 'animal'); //file_upload() called  
     if ($picture->error === 0) {
-        ($_POST["picture"] == "product.png") ?: unlink("../pictures/$_POST[picture]");
-        $sql = "UPDATE products SET name = '$name', price = $price, picture = '$picture->fileName', fk_supplierId = $supplier WHERE id = {$id}";
+        ($_POST["picture"] == "animal.png") ?: unlink("../../pictures/$_POST[picture]");
+        $sql = "UPDATE animals SET `name` = '$name', `description` = '$description', `size` = '$size', `age` = '$age', `vaccines` = '$vaccines', `breed` = '$breed', `status` = '$status', `fk_address_id` = '$address', `picture` = '$picture->fileName' WHERE id = {$id}";
     } else {
-        $sql = "UPDATE products SET name = '$name', price = $price, fk_supplierId = $supplier WHERE id = {$id}";
+        $sql = "UPDATE animals SET `name` = '$name', `description` = '$description', `size` = '$size', `age` = '$age', `vaccines` = '$vaccines', `breed` = '$breed', `status` = '$status', `fk_address_id` = '$address' WHERE id = {$id}";
     }
     if (mysqli_query($connect, $sql) === TRUE) {
         $class = "success";

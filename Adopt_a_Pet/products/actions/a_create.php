@@ -16,25 +16,31 @@ require_once '../../components/file_upload.php';
 
 if ($_POST) {
     $name = $_POST['name'];
-    $price = $_POST['price'];
-    $supplier = $_POST['supplier'];
+    $description = $_POST['description'];
+    $size = $_POST['size'];
+    $age = $_POST['age'];
+    $vaccines = $_POST['vaccines'];
+    $breed = $_POST['breed'];
+    $status = $_POST['status'];
+    $address = $_POST['address'];
     $uploadError = '';
     //this function exists in the service file upload.
-    $picture = file_upload($_FILES['picture'], 'product');
-
-    if ($supplier == 'none') {
+    $picture = file_upload($_FILES['picture'], 'animal');
+/* 
+    if ($address == 'none') {
         //checks if the supplier is undefined and insert null in the DB
-        $sql = "INSERT INTO products (name, price, picture, fk_supplierId) VALUES ('$name', $price, '$picture->fileName', null)";
-    } else {
-        $sql = "INSERT INTO products (name, price, picture, fk_supplierId) VALUES ('$name', $price, '$picture->fileName', $supplier)";
-    }
-
+        $sql = "INSERT INTO animals (`name`, `description`, `size`, `age`, `vaccines`, `breed`, `status`, `picture`, `fk_address_id`) VALUES ('$name', $description, '$size', '$age', '$vaccines', '$breed', '$status', '$picture->fileName', 'null')";
+    } else { */
+        $sql = "INSERT INTO animals (`name`, `description`, `size`, `age`, `vaccines`, `breed`, `status`, `picture`, `fk_address_id`) VALUES ('$name', '$description', '$size', '$age', '$vaccines', '$breed', '$status', '$picture->fileName', '$address')";
+/*     }
+ */
     if (mysqli_query($connect, $sql) === true) {
         $class = "success";
         $message = "The entry below was successfully created <br>
             <table class='table w-50'><tr>
             <td> $name </td>
-            <td> $price </td>
+            <td> $breed </td>
+            <td> $description </td>
             </tr></table><hr>";
         $uploadError = ($picture->error != 0) ? $picture->ErrorMessage : '';
     } else {

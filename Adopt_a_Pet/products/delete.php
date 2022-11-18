@@ -12,16 +12,22 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
 }
 
 require_once '../components/db_connect.php';
-
+ 
 if ($_GET['id']) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM products WHERE id = {$id}";
+    $sql = "SELECT * FROM animals WHERE id = {$id}";
     $result = mysqli_query($connect, $sql);
     $data = mysqli_fetch_assoc($result);
     if (mysqli_num_rows($result) == 1) {
         $name = $data['name'];
-        $price = $data['price'];
+        $description = $data['description'];
+        $size = $data['size'];
+        $age = $data['age'];
+        $vaccines = $data['vaccines'];
+        $breed = $data['breed'];
+        $status = $data['status'];
         $picture = $data['picture'];
+        $add = $data['fk_address_id'];
     } else {
         header("location: error.php");
     }
@@ -37,7 +43,7 @@ if ($_GET['id']) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Product</title>
+    <title>Delete Animal</title>
     <?php require_once '../components/boot.php' ?>
     <style type="text/css">
         fieldset {
@@ -55,11 +61,14 @@ if ($_GET['id']) {
 
 <body>
     <fieldset>
-        <legend class='h2 mb-3'>Delete request <img class='img-thumbnail rounded-circle' src='pictures/<?php echo $picture ?>' alt="<?php echo $name ?>"></legend>
+        <legend class='h2 mb-3'>Delete request <img class='img-thumbnail rounded-circle' src='../pictures/<?php echo $picture ?>' alt="<?php echo $name ?>"></legend>
         <h5>You have selected the data below:</h5>
         <table class="table w-75 mt-3">
             <tr>
-                <td><?php echo $name ?></td>
+            <td><?php echo $name ?></td>
+            <td><?php echo $breed ?></td>
+            <td><?php echo $description ?></td>
+            <td><?php echo $add ?></td>
             </tr>
         </table>
 
