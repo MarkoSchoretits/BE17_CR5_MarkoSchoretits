@@ -28,7 +28,9 @@ if (isset($_GET['id'])) {
         $f_name = $data['first_name'];
         $l_name = $data['last_name'];
         $email = $data['email'];
-        $date_birth = $data['date_of_birth'];
+        $phone = $data['phone_number'];
+        $pass = $data['password'];
+        $add = $data['fk_address_id'];
         $picture = $data['picture'];
     }
 }
@@ -39,7 +41,12 @@ if (isset($_POST["submit"])) {
     $f_name = $_POST['first_name'];
     $l_name = $_POST['last_name'];
     $email = $_POST['email'];
-    $date_of_birth = $_POST['date_of_birth'];
+    $phone = $_POST['phone_number'];
+    $pass = $_POST['password'];
+        // password hashing for security
+        $password = hash('sha256', $pass);
+        // if there's no error, continue to update
+    $add = $_POST['fk_address_id'];
     $id = $_POST['id'];
     //variable for upload pictures errors is initialized
     $uploadError = '';
@@ -47,9 +54,9 @@ if (isset($_POST["submit"])) {
     $picture = $pictureArray->fileName;
     if ($pictureArray->error === 0) {
         ($_POST["picture"] == "avatar.png") ?: unlink("pictures/{$_POST["picture"]}");
-        $sql = "UPDATE users SET first_name = '$f_name', last_name = '$l_name', email = '$email', date_of_birth = '$date_of_birth', picture = '$pictureArray->fileName' WHERE id = {$id}";
+        $sql = "UPDATE users SET first_name = '$f_name', last_name = '$l_name', email = '$email', phone_number = '$phone', `password` = '$password',  `fk_address_id` = '$add', picture = '$pictureArray->fileName' WHERE id = {$id}";
     } else {
-        $sql = "UPDATE users SET first_name = '$f_name', last_name = '$l_name', email = '$email', date_of_birth = '$date_of_birth' WHERE id = {$id}";
+        $sql = "UPDATE users SET first_name = '$f_name', last_name = '$l_name', email = '$email', phone_number = '$phone', `password` = '$password',  `fk_address_id` = '$add' WHERE id = {$id}";
     }
     if (mysqli_query($connect, $sql) === true) {
         $class = "alert alert-success";
@@ -112,8 +119,16 @@ mysqli_close($connect);
                     <td><input class="form-control" type="email" name="email" placeholder="Email" value="<?php echo $email ?>" /></td>
                 </tr>
                 <tr>
-                    <th>Date of birth</th>
-                    <td><input class="form-control" type="date" name="date_of_birth" placeholder="Date of birth" value="<?php echo $date_birth ?>" /></td>
+                    <th>Phone Number</th>
+                    <td><input class="form-control" type="text" name="phone_number" placeholder="Phone Number" value="<?php echo $phone ?>" /></td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td><input class="form-control" type="text" name="password" placeholder="Password" value="<?php echo $pass ?>" /></td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td><input class="form-control" type="number" name="fk_address_id" placeholder="Address" value="<?php echo $add ?>" /></td>
                 </tr>
                 <tr>
                     <th>Picture</th>
