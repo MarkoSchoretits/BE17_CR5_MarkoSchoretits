@@ -24,8 +24,12 @@ if ($result->num_rows > 0) {
         $tbody .= "<tr>
             <td><img class='img-thumbnail rounded-circle' src='pictures/" . $row['picture'] . "' alt=" . $row['first_name'] . "></td>
             <td>" . $row['first_name'] . " " . $row['last_name'] . "</td>
-            <td>" . $row['date_of_birth'] . "</td>
             <td>" . $row['email'] . "</td>
+            <td>" . $row['phone_number'] . "</td>
+            <td>" . $row['fk_address_id'] . "</td>
+            <td>" . $row['password'] . "</td>
+            <td>" . $row['status'] . "</td>
+            <td>" . $row['picture'] . "</td>
             <td><a href='update.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Edit</button></a>
             <a href='delete.php?id=" . $row['id'] . "'><button class='btn btn-danger btn-sm' type='button'>Delete</button></a></td>
          </tr>";
@@ -84,8 +88,12 @@ mysqli_close($connect);
                         <tr>
                             <th>Picture</th>
                             <th>Name</th>
-                            <th>Date of birth</th>
                             <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Address_Id</th>
+                            <th>Password</th>
+                            <th>Status</th>
+                            <th>Picture</th>
                             <th>Action</th>
                         </tr>
                     </thead>

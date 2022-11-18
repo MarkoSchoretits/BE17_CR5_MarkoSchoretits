@@ -31,7 +31,10 @@ if (mysqli_num_rows($result)  > 0) {
             <td>" . $row['vaccines'] . "</td>
             <td>" . $row['breed'] . "</td>
             <td>" . $row['status'] . "</td>
-            <td><a href='adopt.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Adopt</button></a>
+            <td>
+                <a href='products/details.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Details</button></a>
+                <a href='products/adopt.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Adopt</button></a>
+            </td>
             </tr>";
     };
 } else {
@@ -66,13 +69,14 @@ mysqli_close($connect);
     <div class="container">
         <div class="hero">
             <img class="userImage" src="pictures/<?php echo $row_u['picture']; ?>" alt="<?php echo $row_u['first_name']; ?>">
-            <p class="text-white">Hi <?php echo $row_u['first_name']; ?></p>
+            <p class="text-white">Hello <?php echo $row_u['first_name'];?> (<?php echo $row_u['email'];?> )</p>
         </div>
 
         <div class="manageProduct w-75 mt-3">
 
-            <a href="logout.php?logout">Sign Out</a>
-            <a href="update.php?id=<?php echo $_SESSION['user'] ?>">Update your profile</a><br><br>
+            <a href="update.php?id=<?php echo $_SESSION['user'] ?>">Update your profile</a><br>
+            <a href="logout.php?logout">Sign Out</a><br><br>
+
 <!-- 
             <div class='mb-3'>
                 <a href="create.php"><button class='btn btn-primary' type="button">Add product</button></a>
@@ -92,7 +96,7 @@ mysqli_close($connect);
                         <th>Vaccines</th>
                         <th>Breed</th>
                         <th>Availability</th>
-                        <th>Adopt</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

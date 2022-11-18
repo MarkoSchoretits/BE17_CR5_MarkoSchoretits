@@ -22,7 +22,10 @@ if ($_GET['id']) {
         $f_name = $data['first_name'];
         $l_name = $data['last_name'];
         $email = $data['email'];
-        $date_of_birth = $data['date_of_birth'];
+        $phone = $data['phone_number'];
+        $pass = $data['password'];
+        $add = $data['fk_address_id'];
+        $status = $data['status'];
         $picture = $data['picture'];
     }
 }
@@ -79,7 +82,7 @@ mysqli_close($connect);
             <tr>
                 <td><?php echo "$f_name $l_name" ?></td>
                 <td><?php echo $email ?></td>
-                <td><?php echo $date_of_birth ?></td>
+                <td><?php echo $add ?></td>
             </tr>
         </table>
         <h3 class="mb-4">Do you really want to delete this user?</h3>
