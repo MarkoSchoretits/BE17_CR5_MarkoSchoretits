@@ -13,18 +13,20 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
     exit;
 }
 
+$selected_animal = $_GET['id'];
+
 // select logged-in users details - procedural style
 $res = mysqli_query($connect, "SELECT * FROM users WHERE id=" . $_SESSION['user']);
 $row_u = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
-$sql = "SELECT * FROM animals";
+$sql = "SELECT * FROM animals WHERE id = $selected_animal";
 $result = mysqli_query($connect, $sql);
 $tbody = ''; //this variable will hold the body for the table
 if (mysqli_num_rows($result)  > 0) {
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        $selected_name = $row['name'];
         $tbody .= "<tr>
             <td><img class='img-thumbnail' src='pictures/" . $row['picture'] . "'</td>
-            <td>" . $row['name'] . "</td>
             <td>" . $row['description'] . "</td>
             <td>" . $row['size'] . "</td>
             <td>" . $row['age'] . "</td>
@@ -32,8 +34,7 @@ if (mysqli_num_rows($result)  > 0) {
             <td>" . $row['breed'] . "</td>
             <td>" . $row['status'] . "</td>
             <td>
-                <a href='details.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Details</button></a>
-                <a href='adopt.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Adopt</button></a>
+                <a href='adopt.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Take Me Home</button></a>
             </td>
             </tr>";
     };
@@ -72,7 +73,7 @@ mysqli_close($connect);
             <p class="text-white">Hello <?php echo $row_u['first_name'];?> (<?php echo $row_u['email'];?> )</p>
         </div>
 
-        <div class="manageProduct w-75 mt-3">
+        <div class="manageProduct w-100 mt-3">
 
             <a href="update.php?id=<?php echo $_SESSION['user'] ?>">Update your profile</a><br>
             <a href="logout.php?logout">Sign Out</a><br><br>
@@ -83,15 +84,14 @@ mysqli_close($connect);
                 <a href="../dashboard.php"><button class='btn btn-success' type="button">Dashboard</button></a>
             </div>
  -->
-            <p class='h2'>These are all of our Animals</p>
-            <a href='seniors.php?'><button class='btn btn-primary btn-sm' type='button'>Show seniors only!</button></a><br><br>
+            <p class='h2'>This is <?php echo $selected_name ?></p>
+            <a href='home.php?'><button class='btn btn-primary btn-sm' type='button'>Show all animals!</button></a><br><br>
 
             <table class='table table-striped'>
                 <thead class='table-success'>
                     <tr>
                         <th>Picture</th>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th>Long&nbsp;Description</th>
                         <th>Size</th>
                         <th>Age</th>
                         <th>Vaccines</th>

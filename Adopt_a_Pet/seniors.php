@@ -32,8 +32,8 @@ if (mysqli_num_rows($result)  > 0) {
             <td>" . $row['breed'] . "</td>
             <td>" . $row['status'] . "</td>
             <td>
-                <a href='products/details.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Details</button></a>
-                <a href='products/adopt.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Adopt</button></a>
+                <a href='details.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Details</button></a>
+                <a href='adopt.php?id=" . $row['id'] . "'><button class='btn btn-primary btn-sm' type='button'>Adopt</button></a>
             </td>
             </tr>";
     };
