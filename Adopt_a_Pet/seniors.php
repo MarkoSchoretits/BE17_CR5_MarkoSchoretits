@@ -17,7 +17,7 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
 $res = mysqli_query($connect, "SELECT * FROM users WHERE id=" . $_SESSION['user']);
 $row_u = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
-$sql = "SELECT * FROM animals";
+$sql = "SELECT * FROM animals WHERE age >= 8";
 $result = mysqli_query($connect, $sql);
 $tbody = ''; //this variable will hold the body for the table
 if (mysqli_num_rows($result)  > 0) {
@@ -83,8 +83,8 @@ mysqli_close($connect);
                 <a href="../dashboard.php"><button class='btn btn-success' type="button">Dashboard</button></a>
             </div>
  -->
-            <p class='h2'>These are all of our Animals</p>
-            <a href='seniors.php?'><button class='btn btn-primary btn-sm' type='button'>Show seniors only!</button></a><br><br>
+            <p class='h2'>These are our senior Animals</p>
+            <a href='home.php?'><button class='btn btn-primary btn-sm' type='button'>Show all ages!</button></a><br><br>
 
             <table class='table table-striped'>
                 <thead class='table-success'>

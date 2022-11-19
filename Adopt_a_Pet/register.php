@@ -156,16 +156,19 @@ mysqli_close($connect);
             <input type="text" name="phone" class="form-control" placeholder="Enter Your Phone Number" maxlength="40" value="<?php echo $phone ?>" />
             <span class="text-danger"> <?php echo $phoneError; ?> </span>
 
-            <input type="text" name="add" class="form-control" placeholder="Enter Your Address" maxlength="40" value="<?php echo $add ?>" />
+            <input type="text" name="add" class="form-control" placeholder="Select Your Address (1-10)" maxlength="40" value="<?php echo $add ?>" />
             <span class="text-danger"> <?php echo $addError; ?> </span>
             
-            <div class="d-flex">
-<!--                 <input class='form-control w-50' type="date" name="date_of_birth" value="<?php echo $date_of_birth ?>" />
+<!--             <div class="d-flex">
+                <input class='form-control w-50' type="date" name="date_of_birth" value="<?php echo $date_of_birth ?>" />
                 <span class="text-danger"> <?php echo $dateError; ?> </span>
- -->
-                <input class='form-control w-50' type="file" name="picture">
+                <input class='form-control w-50' type="file" name="picture" placeholder="Select a picture">
                 <span class="text-danger"> <?php echo $picError; ?> </span>
             </div>
+ -->            
+            <input class='form-control' type="file" name="picture">
+            <span class="text-danger"> <?php echo $picError; ?> </span>
+
             <input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
             <span class="text-danger"> <?php echo $passError; ?> </span>
             <hr />
