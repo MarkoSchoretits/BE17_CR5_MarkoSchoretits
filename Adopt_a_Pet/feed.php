@@ -1,8 +1,12 @@
+<!-- PHP -->
 <?php
+
 /* echo "Adoption yet to be implemented. <br>
 Click BACK in your browser to get you back to your animal list!";
  */
+
 session_start();
+
 require_once 'components/db_connect.php';
 
 // if adm will redirect to dashboard
@@ -10,6 +14,7 @@ if (isset($_SESSION['adm'])) {
     header("Location: dashboard.php");
     exit;
 }
+
 // if session is not set this will redirect to login page
 if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
     header("Location: index.php");
@@ -25,10 +30,15 @@ $row_u = mysqli_fetch_array($res, MYSQLI_ASSOC);
 $sql = "SELECT * FROM animals WHERE id = $selected_animal";
 $result = mysqli_query($connect, $sql);
 $tbody = ''; //this variable will hold the body for the table
+
 if (mysqli_num_rows($result)  > 0) {
+
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
         $selected_name = $row['name'];
-        $tbody .= "<tr>
+
+        $tbody .= "
+        <tr>
             <td><img class='img-thumbnail' src='pictures/" . $row['picture'] . "'</td>
             <td>" . $row['description'] . "</td>
             <td>" . $row['size'] . "</td>
@@ -36,18 +46,23 @@ if (mysqli_num_rows($result)  > 0) {
             <td>" . $row['vaccines'] . "</td>
             <td>" . $row['breed'] . "</td>
             <td>" . $row['status'] . "</td>
-            </tr>";
+        </tr>";
     };
+
 } else {
     $tbody =  "<tr><td colspan='5'><center>No Data Available </center></td></tr>";
 }
 
 mysqli_close($connect);
-?>
 
+?>
+<!-- /php -->
+
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- HEAD -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,13 +80,18 @@ mysqli_close($connect);
         }
     </style>
 </head>
+<!-- /head -->
 
+<!-- BODY -->
 <body>
     <div class="container">
+
+        <!-- HERO -->
         <div class="hero">
             <img class="userImage" src="pictures/<?php echo $row_u['picture']; ?>" alt="<?php echo $row_u['first_name']; ?>">
             <p class="text-white">Hello <?php echo $row_u['first_name'];?> (<?php echo $row_u['email'];?> )</p>
         </div>
+        <!-- /hero -->
 
         <div class="manageProduct w-100 mt-3">
 
@@ -83,12 +103,15 @@ mysqli_close($connect);
                 <a href="create.php"><button class='btn btn-primary' type="button">Add product</button></a>
                 <a href="../dashboard.php"><button class='btn btn-success' type="button">Dashboard</button></a>
             </div>
- -->
+-->
+
             <p class='h2'>What does <?php echo $selected_name ?> eat?</p>
+
             <p>A link to our Food Shop will be provided soon.</p>
             <a href='home.php?'><button class='btn btn-primary btn-sm' type='button'>Show other animals!</button></a><br><br>
 
             <table class='table table-striped'>
+
                 <thead class='table-success'>
                     <tr>
                         <th>Picture</th>
@@ -100,11 +123,18 @@ mysqli_close($connect);
                         <th>Availability</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <?= $tbody; ?>
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
 </body>
+<!-- /body -->
+
 </html>
+<!-- /html -->
